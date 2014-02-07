@@ -5,8 +5,6 @@ use warnings;
 
 our $VERSION = "0.01";
 
-
-
 1;
 __END__
 
@@ -18,11 +16,9 @@ Localizer - It's new $module
 
 =head1 SYNOPSIS
 
-    use Localizer;
-
 =head1 DESCRIPTION
 
-Localizer is ...
+See L<Localizer::Resource>
 
 =head1 LICENSE
 
