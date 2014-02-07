@@ -11,7 +11,8 @@ our @EXPORT = qw(read_properties);
 sub read_properties {
     my $filename = shift;
 
-    open my $fh, '<:encoding(utf-8)', $filename;
+    open my $fh, '<:encoding(utf-8)', $filename
+        or Carp::croak("Cannot open '$filename' for reading: $!");
 
     my @out;
     for my $line (<$fh>) {
