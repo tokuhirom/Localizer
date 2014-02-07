@@ -11,9 +11,9 @@ our @EXPORT = qw(read_properties);
 sub read_properties {
     my $filename = shift;
 
-    my @out;
     open my $fh, '<:encoding(utf-8)', $filename;
 
+    my @out;
     for my $line (<$fh>) {
         if ($line =~ /\A([^=]+)=(.+?)[\015\012]*\z/) {
             my ($k, $v) = ($1, $2);
