@@ -102,11 +102,10 @@ __END__
 =head1 SYNOPSIS
 
     use Localizer;
+    use Localizer::Lexicon::Properties qw(read_properties);
 
     my $ja = Localizer::Resource->new(
-        dictionary => {
-            Localizer::Properties::read_properties('ja.properties')
-        }
+        dictionary => read_properties('ja.properties'),
         style => Localizer::Style::Gettext->new(),
     );
     say $ja->maketext("Hi, %1.", 'John');
