@@ -7,7 +7,7 @@ use Localizer::Format::Maketext;
 use Localizer::Resource;
 use Localizer::Lexicon::Properties qw/read_properties/;
 
-subtest 'Properties file of Maketext format' => sub {
+subtest 'Properties file of maketext format' => sub {
     my $de = Localizer::Resource->new(
         dictionary => read_properties('t/dat/Maketext/de.properties'),
         format => Localizer::Format::Maketext->new,
@@ -16,19 +16,20 @@ subtest 'Properties file of Maketext format' => sub {
         },
     );
 
-    is $de->maketext('Good morning'), 'Guten Morgen';
+    is $de->maketext('Hello, World!'), 'Hallo, Welt!', 'simple case';
     is $de->maketext('Goodbye'), 'Goodbye';
-
-    is $de->maketext('double', 7), 'doppelt 14';
-    is $de->maketext('quant', 7), '7 zazen';
-    is $de->maketext('quant_astarisk', 7), '7 zazen';
+    is $de->maketext('Double [dubbil,_1]', 7), 'Doppelt 14';
+    is $de->maketext('You have [*,_1,piece] of mail.', 1), 'Sie haben 1 Poststueck.';
+    is $de->maketext('You have [*,_1,piece] of mail.', 10), 'Sie haben 10 Poststuecken.';
+    is $de->maketext('[_1] [_2] [_*]', 1, 2, 3), '123 2 1', 'asterisk interpolation';
+    is $de->maketext('[_1,_2,_*]', 1, 2, 3), '12321', 'concatenated variables';
+    is $de->maketext('[_1]()', 10), '10()', "concatenated variables";
+    is $de->maketext('_key'), '_schlüssel', "keys which start with";
+    is $de->maketext("\\n\\nKnowledge\\nAnd\\nNature\\n\\n"), "\n\nIch wuenschte recht gelehrt zu werden,\nUnd moechte gern, was auf der Erden\nUnd in dem Himmel ist, erfassen,\nDie Wissenschaft und die Natur.\n\n", 'multiline';
 
     my $err = eval { $de->maketext('this is ] an error') };
     is $err, undef, "no return from eval";
     like $@, qr/Unbalanced\s'\]',\sin/ms, '$@ shows that ] was unbalanced';
-
-    is $de->maketext('Hey, [_1]', 'you'), 'Hey, you', "keys with bracket notation ok";
-    is $de->maketext('_key'), '_schlüssel', "keys which start with _ ok";
 };
 
 done_testing;
