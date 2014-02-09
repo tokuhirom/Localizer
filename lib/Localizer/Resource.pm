@@ -106,7 +106,7 @@ __END__
 
     my $ja = Localizer::Resource->new(
         dictionary => read_properties('ja.properties'),
-        style => Localizer::Style::Gettext->new(),
+        format => Localizer::Format::Gettext->new(),
     );
     say $ja->maketext("Hi, %1.", 'John');
 
