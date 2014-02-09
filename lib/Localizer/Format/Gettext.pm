@@ -11,7 +11,7 @@ sub compile {
     return $self->SUPER::compile($fmt);
 }
 
-# Steal from Maketext:Lexicon::Gettext::_gettext_to_maketext
+# Steal from Locale::Maketext::Lexicon::Gettext::_gettext_to_maketext
 sub _gettext_to_maketext {
     my ($self, $str) = @_;
 
@@ -27,11 +27,19 @@ sub _gettext_to_maketext {
             )
     }{
         $1 ? $1
-           : $2 ? "\[$2,"._unescape($3)."]"
+           : $2 ? "\[$2,".$self->_unescape($3)."]"
                 : "[_$4]"
     }egx;
 
     return $str;
+}
+
+# Steal from Locale::Maketext:Lexicon::Gettext::_unescape
+sub _unescape {
+    my ($self, $str) = @_;
+    join( ',',
+        map { /\A(\s*)%([1-9]\d*|\*)(\s*)\z/ ? "$1_$2$3" : $_ }
+            split( /,/, $str ) );
 }
 
 1;
