@@ -17,16 +17,14 @@ sub _compile {
     my @code;
     while ($str =~ m/
             (.*?)
-            (
-                (%%)
+            (?:
+                (%%|\\%)
                 |
                 %(?:
                     ([A-Za-z#*]\w*)\(([^\)]*)\)
                     |
                     ([1-9]\d*|\*)
                 )
-                |
-                (\\%)
                 |
                 $
             )
@@ -38,48 +36,42 @@ sub _compile {
             push @code, "'" . $text . "',";
         }
         if ($2) {
-            if ($3) {
-                my $text = $3;
-                push @code, "'" . $3 . "',";
+            my $text = $2;
+            $text =~ s/\\/\\\\\\\\/g;
+            push @code, "'" . $text . "',";
+        }
+        elsif ($3) {
+            my $function_name = $3;
+            if ($function_name eq '*') {
+                $function_name = 'quant';
             }
-            elsif ($4) {
-                my $function_name = $4;
-                if ($function_name eq '*') {
-                    $function_name = 'quant';
-                }
-                elsif ($function_name eq '#') {
-                    $function_name = 'numf';
-                }
-
-                my $code = q{$_[0]->call_function('} . $function_name . q{', };
-                for my $arg (split(/,/, $5)) {
-                    if (my $num = $arg =~ /%(.+)/) {
-                        $code .= '$_[' . $num . '], ';
-                    }
-                    else {
-                        $code .= "'" . $arg . "', ";
-                    }
-                }
-                $code .= '), ';
-                push @code, $code;
+            elsif ($function_name eq '#') {
+                $function_name = 'numf';
             }
-            elsif ($6) {
-                my $arg = $6;
 
-                my $var = '';
-                if ($arg eq '*') {
-                    $var = '@_[1 .. $#_],';
+            my $code = q{$_[0]->call_function('} . $function_name . q{', };
+            for my $arg (split(/,/, $4)) {
+                if (my $num = $arg =~ /%(.+)/) {
+                    $code .= '$_[' . $num . '], ';
                 }
                 else {
-                    $var = '$_[' . $arg . '],';
+                    $code .= "'" . $arg . "', ";
                 }
-                push @code, $var;
             }
-            elsif ($7) {
-                my $text = $7;
-                $text =~ s/\\/\\\\\\\\/g;
-                push @code, "'" . $text . "',";
+            $code .= '), ';
+            push @code, $code;
+        }
+        elsif ($5) {
+            my $arg = $5;
+
+            my $var = '';
+            if ($arg eq '*') {
+                $var = '@_[1 .. $#_],';
             }
+            else {
+                $var = '$_[' . $arg . '],';
+            }
+            push @code, $var;
         }
     }
 
