@@ -4,7 +4,7 @@ use warnings;
 use utf8;
 use 5.010_001;
 
-use Localizer::Format::Gettext;
+use Localizer::Style::Gettext;
 
 our $BUILTIN_FUNCTIONS;
 $BUILTIN_FUNCTIONS = {
@@ -69,7 +69,7 @@ has compiled => (
 has format => (
     is => 'ro',
     isa => 'Object',
-    default => sub { Localizer::Format::Gettext->new() },
+    default => sub { Localizer::Style::Gettext->new() },
 );
 
 has functions => (
@@ -148,7 +148,7 @@ __END__
 
     my $ja = Localizer::Resource->new(
         dictionary => read_properties('ja.properties'),
-        format => Localizer::Format::Gettext->new(),
+        format => Localizer::Style::Gettext->new(),
     );
     say $ja->maketext("Hi, %1.", 'John');
 

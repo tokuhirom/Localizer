@@ -3,14 +3,14 @@ use warnings;
 use utf8;
 use Test::More;
 
-use Localizer::Format::Gettext;
+use Localizer::Style::Gettext;
 use Localizer::Resource;
 use Localizer::Lexicon::Properties qw/read_properties/;
 
 subtest 'Properties file of gettext format' => sub {
     my $de = Localizer::Resource->new(
         dictionary => read_properties('t/dat/Gettext/de.properties'),
-        format => Localizer::Format::Gettext->new,
+        format => Localizer::Style::Gettext->new,
         functions => {
             dubbil => sub { return $_[0] * 2 },
         },

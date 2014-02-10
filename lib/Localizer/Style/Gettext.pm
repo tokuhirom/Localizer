@@ -1,9 +1,9 @@
-package Localizer::Format::Gettext;
+package Localizer::Style::Gettext;
 use strict;
 use warnings;
 use utf8;
 use 5.010_001;
-use parent qw(Localizer::Format::Maketext);
+use parent qw(Localizer::Style::Maketext);
 
 sub compile {
     my ($self, $fmt) = @_;

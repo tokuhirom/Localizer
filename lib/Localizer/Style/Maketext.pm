@@ -1,4 +1,4 @@
-package Localizer::Format::Maketext;
+package Localizer::Style::Maketext;
 use strict;
 use warnings;
 use utf8;

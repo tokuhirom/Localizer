@@ -4,7 +4,7 @@ use utf8;
 use Test::More;
 
 use Localizer::Resource;
-use Localizer::Format::Maketext;
+use Localizer::Style::Maketext;
 
 subtest 'basic' => sub {
     my $ja = Localizer::Resource->new(
@@ -24,7 +24,7 @@ subtest 'basic' => sub {
         dictionary => {
             'Oops [sprintf,%.1f,103.14]' => 'うーぷす [sprintf,%.1f,103.14]',
         },
-        format => Localizer::Format::Maketext->new,
+        format => Localizer::Style::Maketext->new,
     );
     is($ja->maketext('Oops [sprintf,%.1f,103.14]'), 'うーぷす 103.1');
 };

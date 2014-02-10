@@ -3,14 +3,14 @@ use warnings;
 use utf8;
 use Test::More;
 
-use Localizer::Format::Maketext;
+use Localizer::Style::Maketext;
 use Localizer::Resource;
 use Localizer::Lexicon::Properties qw/read_properties/;
 
 subtest 'Properties file of maketext format' => sub {
     my $de = Localizer::Resource->new(
         dictionary => read_properties('t/dat/Maketext/de.properties'),
-        format => Localizer::Format::Maketext->new,
+        format => Localizer::Style::Maketext->new,
         functions => {
             dubbil => sub { return $_[0] * 2 },
         },
