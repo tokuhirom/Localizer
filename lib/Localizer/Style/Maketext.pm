@@ -4,8 +4,6 @@ use warnings;
 use utf8;
 use 5.010_001;
 
-use Locale::Maketext ();
-
 sub DEBUG () { 0 }
 
 our $USE_LITERALS;
