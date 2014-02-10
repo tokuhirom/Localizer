@@ -21,6 +21,7 @@ subtest 'Properties file of gettext format' => sub {
     is $de->maketext('Double %dubbil(%1)', 7), 'Doppelt 14';
     is $de->maketext('You have %*(%1,piece) of mail.', 1), 'Sie haben 1 Poststueck.';
     is $de->maketext('You have %*(%1,piece) of mail.', 10), 'Sie haben 10 Poststuecken.';
+    is $de->maketext('Price: %#(%1)', 1000000), 'Preis: 1,000,000';
     is $de->maketext('%1 %2 %*', 1, 2, 3), '123 2 1', 'asterisk interpolation';
     is $de->maketext('%1%2%*', 1, 2, 3), '12321', 'concatenated variables';
     is $de->maketext('%1()', 10), '10()', 'concatenated variables';

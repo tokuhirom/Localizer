@@ -24,7 +24,6 @@ $BUILTIN_FUNCTIONS = {
         #  backtrack so it un-eats the rightmost three, and then we
         #  insert the comma there.
 
-        # This is just a lame hack instead of using Number::Format
         return $num;
     },
     numerate => sub { # imported by Locale::Maketext

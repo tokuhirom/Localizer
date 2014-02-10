@@ -21,6 +21,7 @@ subtest 'Properties file of maketext format' => sub {
     is $de->maketext('Double [dubbil,_1]', 7), 'Doppelt 14';
     is $de->maketext('You have [*,_1,piece] of mail.', 1), 'Sie haben 1 Poststueck.';
     is $de->maketext('You have [*,_1,piece] of mail.', 10), 'Sie haben 10 Poststuecken.';
+    is $de->maketext('Price: [#,_1]', 1000000), 'Preis: 1,000,000';
     is $de->maketext('[_1] [_2] [_*]', 1, 2, 3), '123 2 1', 'asterisk interpolation';
     is $de->maketext('[_1,_2,_*]', 1, 2, 3), '12321', 'concatenated variables';
     is $de->maketext('[_1]()', 10), '10()', "concatenated variables";
