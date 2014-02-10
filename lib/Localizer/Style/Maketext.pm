@@ -258,7 +258,7 @@ sub _compile {
     push @code, "}\n";
 
     DEBUG and warn @code;
-    my $sub = eval(join '', @code);
+    my $sub = eval(join '', @code); ## no critic.
     die "$@ while evalling" . join('', @code) if $@; # Should be impossible.
     return $sub;
 }
