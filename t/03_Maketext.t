@@ -13,7 +13,7 @@ subtest 'Properties file of maketext format' => sub {
             %{Localizer::Format::Properties->new()->read_file('t/dat/Maketext/de.properties')},
             'this is ] an error' => 'this is ] an error',
         },
-        format => Localizer::Style::Maketext->new,
+        style => Localizer::Style::Maketext->new,
         functions => {
             dubbil => sub { return $_[0] * 2 },
         },

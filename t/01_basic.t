@@ -23,7 +23,7 @@ subtest 'basic' => sub {
         dictionary => {
             'Oops [sprintf,%.1f,103.14]' => 'うーぷす [sprintf,%.1f,103.14]',
         },
-        format => Localizer::Style::Maketext->new,
+        style  => Localizer::Style::Maketext->new,
     );
     is($ja->maketext('Oops [sprintf,%.1f,103.14]'), 'うーぷす 103.1');
 };

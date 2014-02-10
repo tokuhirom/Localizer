@@ -66,7 +66,7 @@ has compiled => (
     default => sub { +{ } },
 );
 
-has format => (
+has style => (
     is => 'ro',
     isa => 'Object',
     default => sub { Localizer::Style::Gettext->new() },
@@ -109,7 +109,7 @@ sub compile {
 
     my $fmt = $self->dictionary->{$msgid};
     return unless $fmt;
-    my $code = $self->format->compile($fmt);
+    my $code = $self->style->compile($fmt);
     $self->compiled->{$msgid} = $code;
     return $code;
 }
@@ -132,10 +132,11 @@ __END__
 
     use Localizer;
     use Localizer::Format::Properties;
+    use Localizer::Style::Gettext;
 
     my $ja = Localizer::Resource->new(
         dictionary => Localizer::Format::Properties->new->read_file('ja.properties'),
-        format => Localizer::Style::Gettext->new(),
+        style => Localizer::Style::Gettext->new(),
     );
     say $ja->maketext("Hi, %1.", 'John');
 
