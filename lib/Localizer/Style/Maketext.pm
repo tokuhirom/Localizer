@@ -6,8 +6,6 @@ use 5.010_001;
 
 sub DEBUG () { 0 }
 
-our $USE_LITERALS;
-
 sub new { bless {}, shift }
 
 sub compile {
@@ -78,13 +76,7 @@ sub _compile {
                     if(length $c[-1]) {
                         # Now actually processing the preceding literal
                         $big_pile .= $c[-1];
-                        if($USE_LITERALS and (
-                                (ord('A') == 65)
-                                ? $c[-1] !~ m/[^\x20-\x7E]/s
-                                # ASCII very safe chars
-                                : $c[-1] !~ m/[^ !"\#\$%&'()*+,\-.\/0-9:;<=>?\@A-Z[\\\]^_`a-z{|}~\x07]/s
-                                # EBCDIC very safe chars
-                            )) {
+                        if ($c[-1] !~ m/[^\x20-\x7E]/s) { # ASCII very safe chars
                             # normal case -- all very safe chars
                             $c[-1] =~ s/'/\\'/g;
                             push @code, q{ '} . $c[-1] . "',\n";
@@ -174,13 +166,7 @@ sub _compile {
                             # _3 meaning $_[3]
                             $code[-1] .= '$_[' . (0 + $1) . '], ';
                         }
-                        elsif($USE_LITERALS and (
-                                (ord('A') == 65)
-                                ? $p !~ m/[^\x20-\x7E]/s
-                                # ASCII very safe chars
-                                : $p !~ m/[^ !"\#\$%&'()*+,\-.\/0-9:;<=>?\@A-Z[\\\]^_`a-z{|}~\x07]/s
-                                # EBCDIC very safe chars
-                            )) {
+                        elsif($p !~ m/[^\x20-\x7E]/s) { # ASCII very safe chars
                             # Normal case: a literal containing only safe characters
                             $p =~ s/'/\\'/g;
                             $code[-1] .= q{'} . $p . q{', };
