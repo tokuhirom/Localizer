@@ -116,10 +116,6 @@ sub _compile {
                     if (ord('A') == 65) { # ASCII, etc
                         foreach($m, @params) { tr/\x7F/,/ }
                     }
-                    else {              # EBCDIC (1047, 0037, POSIX-BC)
-                        # Thanks to Peter Prymmer for the EBCDIC handling
-                        foreach($m, @params) { tr/\x07/,/ }
-                    }
 
                     # Special-case handling of some method names:
                     if($m eq '_*' or $m =~ m/^_(-?\d+)$/s) {
@@ -212,9 +208,6 @@ sub _compile {
                     # want a DEL inside a bracket group.  Let's hope that's it's true.
                     if (ord('A') == 65) { # ASCII etc
                         $c[-1] .= "\x7F";
-                    }
-                    else {              # EBCDIC (cp 1047, 0037, POSIX-BC)
-                        $c[-1] .= "\x07";
                     }
                 }
                 else {
