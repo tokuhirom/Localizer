@@ -15,7 +15,6 @@ subtest 'basic' => sub {
         },
     );
     is($ja->maketext('Hi, %1.', 'じごろうさん'), 'こんにちは、じごろうさん');
-    is($ja->maketext('Good night, %1.', 'じごろうさん'), 'Good night, じごろうさん.');
     is($ja->maketext('Wow'), 'おー');
 };
 

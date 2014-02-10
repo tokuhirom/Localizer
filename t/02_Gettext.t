@@ -9,7 +9,10 @@ use Localizer::Format::Properties;
 
 subtest 'Properties file of gettext format' => sub {
     my $de = Localizer::Resource->new(
-        dictionary => Localizer::Format::Properties->new()->read_file('t/dat/Gettext/de.properties'),
+        dictionary => +{
+            %{Localizer::Format::Properties->new()->read_file('t/dat/Gettext/de.properties')},
+            '%% \\% ~ [ ]' => '%% \\% ~ [ ]',
+        },
         format => Localizer::Style::Gettext->new,
         functions => {
             dubbil => sub { return $_[0] * 2 },
@@ -17,7 +20,6 @@ subtest 'Properties file of gettext format' => sub {
     );
 
     is $de->maketext('Hello, World!'), 'Hallo, Welt!', 'simple case';
-    is $de->maketext('Goodbye'), 'Goodbye';
     is $de->maketext('Double %dubbil(%1)', 7), 'Doppelt 14';
     is $de->maketext('You have %*(%1,piece) of mail.', 1), 'Sie haben 1 Poststueck.';
     is $de->maketext('You have %*(%1,piece) of mail.', 10), 'Sie haben 10 Poststuecken.';

@@ -96,6 +96,7 @@ sub maketext {
     my ($self, $msgid, @args) = @_;
 
     my $compiled = $self->compile($msgid);
+    return undef unless defined $compiled;
 
     if (ref $compiled eq 'CODE') {
         if (0) {
@@ -119,9 +120,7 @@ sub compile {
     }
 
     my $fmt = $self->dictionary->{$msgid};
-    unless (defined $fmt) {
-        $fmt = $self->fallback_handler->($self, $msgid);
-    }
+    return undef unless $fmt;
     my $code = $self->format->compile($fmt);
     $self->compiled->{$msgid} = $code;
     return $code;

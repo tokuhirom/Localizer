@@ -9,7 +9,10 @@ use Localizer::Format::Properties;
 
 subtest 'Properties file of maketext format' => sub {
     my $de = Localizer::Resource->new(
-        dictionary => Localizer::Format::Properties->new()->read_file('t/dat/Maketext/de.properties'),
+        dictionary => +{
+            %{Localizer::Format::Properties->new()->read_file('t/dat/Maketext/de.properties')},
+            'this is ] an error' => 'this is ] an error',
+        },
         format => Localizer::Style::Maketext->new,
         functions => {
             dubbil => sub { return $_[0] * 2 },
@@ -17,7 +20,6 @@ subtest 'Properties file of maketext format' => sub {
     );
 
     is $de->maketext('Hello, World!'), 'Hallo, Welt!', 'simple case';
-    is $de->maketext('Goodbye'), 'Goodbye';
     is $de->maketext('Double [dubbil,_1]', 7), 'Doppelt 14';
     is $de->maketext('You have [*,_1,piece] of mail.', 1), 'Sie haben 1 Poststueck.';
     is $de->maketext('You have [*,_1,piece] of mail.', 10), 'Sie haben 10 Poststuecken.';
@@ -29,8 +31,10 @@ subtest 'Properties file of maketext format' => sub {
     is $de->maketext("\\n\\nKnowledge\\nAnd\\nNature\\n\\n"), "\n\nIch wuenschte recht gelehrt zu werden,\nUnd moechte gern, was auf der Erden\nUnd in dem Himmel ist, erfassen,\nDie Wissenschaft und die Natur.\n\n", 'multiline';
 
     my $err = eval { $de->maketext('this is ] an error') };
+    my $e = $@;
+    note $e;
     is $err, undef, "no return from eval";
-    like $@, qr/Unbalanced\s'\]',\sin/ms, '$@ shows that ] was unbalanced';
+    like $e, qr/Unbalanced\s'\]',\sin/ms, '$@ shows that ] was unbalanced';
 };
 
 done_testing;
