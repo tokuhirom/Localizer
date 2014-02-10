@@ -16,7 +16,7 @@ sub read_properties {
 
     my @out;
     for my $line (<$fh>) {
-        if ($line =~ /\A([^=]+)=(.+?)[\015\012]*\z/) {
+        if ($line =~ /\A[ \t]*([^=]+?)[ \t]*=[ \t]*(.+?)[\015\012]*\z/) {
             my ($k, $v) = ($1, $2);
             $v =~ s/\\n/\n/g;
             push @out, $k, $v;
