@@ -53,5 +53,19 @@
       }
    },
    "release_status" : "unstable",
-   "version" : "0.01"
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/tokuhirom/Localizer/issues"
+      },
+      "homepage" : "https://github.com/tokuhirom/Localizer",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/tokuhirom/Localizer.git",
+         "web" : "https://github.com/tokuhirom/Localizer"
+      }
+   },
+   "version" : "0.01",
+   "x_contributors" : [
+      "moznion <moznion@gmail.com>"
+   ]
 }

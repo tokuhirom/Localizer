@@ -4,11 +4,9 @@ Localizer - It's new $module
 
 # SYNOPSIS
 
-    use Localizer;
-
 # DESCRIPTION
 
-Localizer is ...
+See [Localizer::Resource](https://metacpan.org/pod/Localizer::Resource)
 
 # LICENSE
 
