@@ -78,18 +78,6 @@ has functions => (
     default => sub { +{ } },
 );
 
-has fallback_handler => (
-    is => 'ro',
-    isa => 'CodeRef',
-    default => sub {
-        sub {
-            my ($self, $fmt) = @_;
-            warn "Missing localization for '$fmt'";
-            $fmt;
-        }
-    },
-);
-
 no Mouse;
 
 sub maketext {
