@@ -1,15 +1,15 @@
-package Localizer::Lexicon::Properties;
+package Localizer::Format::Properties;
 use strict;
 use warnings;
 use utf8;
 use 5.010_001;
 
-use parent qw(Exporter);
+use Mouse;
 
-our @EXPORT = qw(read_properties);
+no Mouse;
 
-sub read_properties {
-    my $filename = shift;
+sub read_file {
+    my ($self, $filename) = @_;
 
     open my $fh, '<:encoding(utf-8)', $filename
         or Carp::croak("Cannot open '$filename' for reading: $!");

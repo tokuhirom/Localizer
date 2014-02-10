@@ -5,11 +5,11 @@ use Test::More;
 
 use Localizer::Style::Gettext;
 use Localizer::Resource;
-use Localizer::Lexicon::Properties qw/read_properties/;
+use Localizer::Format::Properties;
 
 subtest 'Properties file of gettext format' => sub {
     my $de = Localizer::Resource->new(
-        dictionary => read_properties('t/dat/Gettext/de.properties'),
+        dictionary => Localizer::Format::Properties->new()->read_file('t/dat/Gettext/de.properties'),
         format => Localizer::Style::Gettext->new,
         functions => {
             dubbil => sub { return $_[0] * 2 },

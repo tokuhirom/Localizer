@@ -144,10 +144,10 @@ __END__
 =head1 SYNOPSIS
 
     use Localizer;
-    use Localizer::Lexicon::Properties qw(read_properties);
+    use Localizer::Format::Properties;
 
     my $ja = Localizer::Resource->new(
-        dictionary => read_properties('ja.properties'),
+        dictionary => Localizer::Format::Properties->new->read_file('ja.properties'),
         format => Localizer::Style::Gettext->new(),
     );
     say $ja->maketext("Hi, %1.", 'John');
