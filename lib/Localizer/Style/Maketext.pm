@@ -113,9 +113,7 @@ sub _compile {
 
                     # A bit of a hack -- we've turned "~,"'s into DELs, so turn
                     #  'em into real commas here.
-                    if (ord('A') == 65) { # ASCII, etc
-                        foreach($m, @params) { tr/\x7F/,/ }
-                    }
+                    foreach($m, @params) { tr/\x7F/,/ }
 
                     # Special-case handling of some method names:
                     if($m eq '_*' or $m =~ m/^_(-?\d+)$/s) {
@@ -206,9 +204,7 @@ sub _compile {
                 if($in_group) {
                     # This is a hack, based on the assumption that no-one will actually
                     # want a DEL inside a bracket group.  Let's hope that's it's true.
-                    if (ord('A') == 65) { # ASCII etc
-                        $c[-1] .= "\x7F";
-                    }
+                    $c[-1] .= "\x7F";
                 }
                 else {
                     $c[-1] .= '~,';
