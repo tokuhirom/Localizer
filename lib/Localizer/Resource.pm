@@ -106,7 +106,7 @@ __END__
 
 =head1 SYNOPSIS
 
-    use Localizer;
+    use Localizer::Resource;
     use Localizer::Format::Properties;
     use Localizer::Style::Gettext;
 
