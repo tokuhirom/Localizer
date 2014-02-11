@@ -29,9 +29,9 @@ sub new {
     $args{style} ||= Localizer::Style::Gettext->new();
 
     my $self = bless {
-        compiled => +{ },
+        compiled   => +{},
         precompile => 1,
-        functions => +{ },
+        functions  => +{},
         %args,
     }, $class;
 
