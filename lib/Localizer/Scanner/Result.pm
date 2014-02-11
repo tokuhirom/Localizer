@@ -4,15 +4,16 @@ use warnings;
 use utf8;
 use 5.010_001;
 
-use Mouse;
-
-has entries => (
-    is => 'ro',
-    isa => 'HashRef[ArrayRef[Int]]',
-    default => sub { +{ } },
+use Class::Accessor::Lite 0.05 (
+    ro => [qw(entries)],
 );
 
-no Mouse;
+sub new {
+    my $class = shift;
+    bless {
+        entries => {},
+    }, $class;
+}
 
 sub add_entry {
     my ($self, $msgid, $file, $line) = @_;

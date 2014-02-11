@@ -8,28 +8,26 @@ sub DEBUG () { 0 }
 
 use Localizer::Scanner::Result;
 
-use Mouse;
-
-has syntax => (
-    is => 'ro',
-    isa => 'Str',
-    default => sub { 'TTerse' },
+use Class::Accessor::Lite 0.05 (
+    ro => [qw(parser)],
 );
 
-has parser => (
-    is => 'ro',
-    builder => '_build_parser',
-);
+sub new {
+    my $class = shift;
+    my %args = @_==1 ? %{$_[0]} : @_;
 
-no Mouse;
+    my $self = bless { }, $class;
+    my $syntax = $args{syntax} || 'TTerse';
+    $self->{parser} = $self->_build_parser($syntax);
+
+    return $self;
+}
 
 our $RESULT;
 our $FILENAME;
 
 sub _build_parser {
-    my $self = shift;
-
-    my $syntax = $self->syntax;
+    my ($self, $syntax) = @_;
 
     eval "use Text::Xslate::Syntax::${syntax};"; ## no critic
     die $@ if $@;
