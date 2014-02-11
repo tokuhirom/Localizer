@@ -10,7 +10,7 @@ use Localizer::Format::Properties;
 subtest 'Properties file of maketext format' => sub {
     my $de = Localizer::Resource->new(
         dictionary => +{
-            %{Localizer::Format::Properties->new()->read_file('t/dat/Maketext/de.properties')},
+            %{read_properties('t/dat/Maketext/de.properties')},
             'this is ] an error' => 'this is ] an error',
         },
         style => Localizer::Style::Maketext->new,
