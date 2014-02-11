@@ -14,33 +14,36 @@ our $BUILTIN_FUNCTIONS = {
     sprintf  => \&Localizer::BuiltinFunctions::sprintf,
 };
 
-use Mouse;
-
-has dictionary => (
-    is => 'ro',
-    isa => 'HashRef',
-    required => 1,
+use Class::Accessor::Lite 0.05 (
+    rw => [qw(dictionary compiled precompile style functions)],
 );
 
-has compiled => (
-    is => 'ro',
-    isa => 'HashRef',
-    default => sub { +{ } },
-);
+sub new {
+    my $class = shift;
+    my %args = @_==1 ? %{$_[0]} : @_;
 
-has style => (
-    is => 'ro',
-    isa => 'Object',
-    default => sub { Localizer::Style::Gettext->new() },
-);
+    unless (exists $args{dictionary}) {
+        Carp::confess("Missing mandatory parameter: dictionary");
+    }
 
-has functions => (
-    is => 'ro',
-    isa => 'HashRef',
-    default => sub { +{ } },
-);
+    $args{style} ||= Localizer::Style::Gettext->new();
 
-no Mouse;
+    my $self = bless {
+        compiled => +{ },
+        precompile => 1,
+        functions => +{ },
+        %args,
+    }, $class;
+
+    # Compile dictionary data to CodeRef or ScalarRef
+    if ($self->precompile) {
+        for my $msgid (keys %{$self->dictionary}) {
+            $self->compile($msgid);
+        }
+    }
+
+    return $self;
+}
 
 sub maketext {
     my ($self, $msgid, @args) = @_;

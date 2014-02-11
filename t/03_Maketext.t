@@ -17,6 +17,7 @@ subtest 'Properties file of maketext format' => sub {
         functions => {
             dubbil => sub { return $_[0] * 2 },
         },
+        precompile => 0,
     );
 
     is $de->maketext('Hello, World!'), 'Hallo, Welt!', 'simple case';
