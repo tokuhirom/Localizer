@@ -85,7 +85,7 @@ sub compile {
 
     my $fmt = $self->dictionary->{$msgid};
     return unless $fmt;
-    my $code = $self->style->compile($fmt);
+    my $code = $self->style->compile($fmt, $self->functions);
     $self->compiled->{$msgid} = $code;
     return $code;
 }

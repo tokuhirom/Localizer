@@ -4,16 +4,18 @@ use warnings;
 use utf8;
 use 5.010_001;
 
+use Carp ();
+
 sub new { bless {}, shift }
 
 sub compile {
-    my ($self, $fmt) = @_;
-    my $code = $self->_compile($fmt);
+    my ($self, $fmt, $functions) = @_;
+    my $code = $self->_compile($fmt, $functions);
     return $code;
 }
 
 sub _compile {
-    my ($self, $str) = @_;
+    my ($self, $str, $functions) = @_;
 
     my @code;
     while ($str =~ m/
@@ -48,6 +50,10 @@ sub _compile {
             }
             elsif ($function_name eq '#') {
                 $function_name = 'numf';
+            }
+
+            unless (exists $functions->{$function_name}) {
+                Carp::confess("Language resource compilation error. Unknown function: '${function_name}'");
             }
 
             my $code = q{$_[0]->call_function('} . $function_name . q{', };
