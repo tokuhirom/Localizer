@@ -37,18 +37,23 @@
          "requires" : {
             "Test::CPAN::Meta" : "0",
             "Test::MinimumVersion" : "0.10108",
+            "Test::Perl::Critic" : "0",
             "Test::Pod" : "1.41",
             "Test::Spellunker" : "v0.2.7"
          }
       },
       "runtime" : {
          "requires" : {
-            "perl" : "5.008005"
+            "Class::Accessor::Lite" : "0.05",
+            "parent" : "0",
+            "perl" : "5.010001"
          }
       },
       "test" : {
          "requires" : {
-            "Test::More" : "0.98"
+            "File::Temp" : "0",
+            "Test::More" : "0.98",
+            "Test::Requires" : "0"
          }
       }
    },
