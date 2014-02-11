@@ -6,7 +6,7 @@ use 5.010_001;
 
 sub DEBUG () { 0 }
 
-use Localizer::Scanner::Result;
+use Localizer::Dictionary;
 
 use Class::Accessor::Lite 0.05 (
     ro => [qw(parser)],

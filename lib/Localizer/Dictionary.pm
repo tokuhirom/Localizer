@@ -1,4 +1,4 @@
-package Localizer::Scanner::Result;
+package Localizer::Dictionary;
 use strict;
 use warnings;
 use utf8;
@@ -17,8 +17,7 @@ sub new {
 
 sub add_entry {
     my ($self, $msgid, $file, $line) = @_;
-    push @{$self->entries->{$msgid}}, [$file, $line];
+    push @{$self->entries->{$msgid}->{position}}, [$file, $line];
 }
 
 1;
-
