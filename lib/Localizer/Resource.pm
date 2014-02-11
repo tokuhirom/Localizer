@@ -28,10 +28,21 @@ sub new {
 
     $args{style} ||= Localizer::Style::Gettext->new();
 
+    my $functions = do {
+        if (exists $args{functions}) {
+            +{
+                %$BUILTIN_FUNCTIONS,
+                %{delete $args{functions}},
+            };
+        } else {
+            $BUILTIN_FUNCTIONS
+        }
+    };
+
     my $self = bless {
         compiled   => +{},
         precompile => 1,
-        functions  => +{},
+        functions  => $functions,
         %args,
     }, $class;
 
@@ -81,7 +92,7 @@ sub compile {
 
 sub call_function {
     my ($self, $name, @args) = @_;
-    my $code = $self->functions->{$name} // $BUILTIN_FUNCTIONS->{$name};
+    my $code = $self->functions->{$name};
     unless ($code) {
         Carp::confess("Unknown function: ${name}");
     }
