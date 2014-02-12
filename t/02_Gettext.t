@@ -13,6 +13,7 @@ subtest 'Properties file of gettext format' => sub {
             %{Localizer::Format::Properties->new()->read_file('t/dat/Gettext/de.properties')},
             '%% \\% ~ [ ]' => '%% \\% ~ [ ]',
             '%unknown()' => '%unknown()',
+            q{'} => q{'},
         },
         format => Localizer::Style::Gettext->new,
         functions => {
@@ -32,6 +33,8 @@ subtest 'Properties file of gettext format' => sub {
     is $de->maketext('_key'), '_schlüssel', "keys which start with";
     is $de->maketext("\\n\\nKnowledge\\nAnd\\nNature\\n\\n"), "\n\nIch wuenschte recht gelehrt zu werden,\nUnd moechte gern, was auf der Erden\nUnd in dem Himmel ist, erfassen,\nDie Wissenschaft und die Natur.\n\n", 'multiline';
     is $de->maketext('%% \\% ~ [ ]'), '%% \\\\% ~ [ ]', 'Special chars';
+
+    is $de->maketext(q{'}), q{'}, 'One more special char';
 
     eval { $de->maketext('%unknown()') };
     like $@, qr(Language resource compilation error.);
