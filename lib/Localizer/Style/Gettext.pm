@@ -92,9 +92,43 @@ sub _compile {
     push @code, "}\n";
 
     my $sub = eval(join '', @code); ## no critic.
-    die "$@ while evalling" . join('', @code) if $@; # Should be impossible.
+    die "Language resource compilation error: $@ while evalling" . join('', @code) if $@; # Should be impossible.
     return $sub;
 }
 
 1;
+__END__
 
+=head1 NAME
+
+Localizer::Style::Gettext - Gettext style
+
+=head1 DESCRIPTION
+
+This module provide feature to use gettext style 'Hi, %1'.
+
+=head1 SYNTAX
+
+=over 4
+
+=item %1, %2, %3, ...
+
+Replace with n-th argument.
+
+=item %*(%1,piece)
+
+Shorthand for quant.
+
+=item %*(1000)
+
+Shorthand for numf.
+
+=item %numf(1000)
+
+=item %quant(%1,piece)
+
+=item %my_own_lang(%1,piece)
+
+Normal function call.
+
+=back
