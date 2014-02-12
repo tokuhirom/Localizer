@@ -14,6 +14,7 @@ subtest 'Properties file of gettext format' => sub {
             '%% \\% ~ [ ]' => '%% \\% ~ [ ]',
             '%unknown()' => '%unknown()',
             q{'} => q{'},
+            q{rock'n'roll %1} => q{rock'n'roll %1},
         },
         format => Localizer::Style::Gettext->new,
         functions => {
@@ -35,6 +36,7 @@ subtest 'Properties file of gettext format' => sub {
     is $de->maketext('%% \\% ~ [ ]'), '%% \\\\% ~ [ ]', 'Special chars';
 
     is $de->maketext(q{'}), q{'}, 'One more special char';
+    is $de->maketext(q{rock'n'roll %1}, 'show'), q{rock'n'roll show}, 'Include single quote in text';
 
     eval { $de->maketext('%unknown()') };
     like $@, qr(Language resource compilation error.);

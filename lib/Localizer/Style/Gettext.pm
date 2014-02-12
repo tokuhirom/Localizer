@@ -4,6 +4,7 @@ use warnings;
 use utf8;
 use 5.010_001;
 
+use B;
 use Carp ();
 
 sub new { bless {}, shift }
@@ -16,6 +17,8 @@ sub compile {
 
 sub _compile {
     my ($self, $str, $functions) = @_;
+
+    return \$str unless $str =~ /%/;
 
     my @code;
     while ($str =~ m/
@@ -36,8 +39,7 @@ sub _compile {
         if ($1) {
             my $text = $1;
             $text =~ s/\\/\\\\/g;
-            my $quot = $text eq "'" ? '"' : "'";
-            push @code, "$quot" . $text . "$quot,";
+            push @code, B::perlstring($text) . ',';
         }
         if ($2) {
             my $text = $2;
@@ -83,10 +85,7 @@ sub _compile {
         }
     }
 
-    if(@code == 0) { # not possible?
-        return \'';
-    }
-    elsif(@code > 1) { # most cases, presumably!
+    if (@code > 1) { # most cases, presumably!
         unshift @code, "join '',\n";
     }
     unshift @code, "use strict; sub {\n";
