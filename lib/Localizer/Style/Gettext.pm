@@ -93,7 +93,7 @@ sub _compile {
     push @code, "}\n";
 
     my $sub = eval(join '', @code); ## no critic.
-    die "$@ while evalling" . join('', @code) if $@; # Should be impossible.
+    die "Language resource compilation error: $@ while evalling" . join('', @code) if $@; # Should be impossible.
     return $sub;
 }
 
