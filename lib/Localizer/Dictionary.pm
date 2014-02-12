@@ -15,7 +15,12 @@ sub new {
     }, $class;
 }
 
-sub add_entry {
+sub exists_msgid {
+    my ($self, $msgid) = @_;
+    exists $self->entries->{$msgid}
+}
+
+sub add_entry_position {
     my ($self, $msgid, $file, $line) = @_;
     push @{$self->entries->{$msgid}->{position}}, [$file, $line];
 }

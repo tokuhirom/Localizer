@@ -147,7 +147,7 @@ PARSER: {
             $vars =~ s/[\n\r]//g if ($vars);
 
             if ($str) {
-                $result->add_entry( $str, $filename, $line - $line_offset ) # <= [MODIFIED] remove mystery line modifier
+                $result->add_entry_position( $str, $filename, $line - $line_offset ) # <= [MODIFIED] remove mystery line modifier
             }
             undef $str;
             undef $vars;

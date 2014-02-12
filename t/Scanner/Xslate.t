@@ -14,7 +14,7 @@ my $ext = Localizer::Scanner::Xslate->new(
     syntax => 'TTerse',
 );
 $ext->scan_file($result, 't/dat/Scanner/xslate.html');
-use Data::Dumper; warn Dumper($result->entries);
+# use Data::Dumper; warn Dumper($result->entries);
 is_deeply $result->entries,
   {
     'nest2' => {
