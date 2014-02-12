@@ -36,7 +36,8 @@ sub _compile {
         if ($1) {
             my $text = $1;
             $text =~ s/\\/\\\\/g;
-            push @code, "'" . $text . "',";
+            my $quot = $text eq "'" ? '"' : "'";
+            push @code, "$quot" . $text . "$quot,";
         }
         if ($2) {
             my $text = $2;
