@@ -12,7 +12,7 @@ use Localizer::Scanner::Perl;
 my $result = Localizer::Dictionary->new();
 my $ext    = Localizer::Scanner::Perl->new();
 $ext->scan_file($result, 't/dat/Scanner/perl.pl');
-is_deeply $result->entries,
+is_deeply $result->_entries,
 {
     "%*(%1) counts" => {
         position => [ [ "t/dat/Scanner/perl.pl", 10 ] ]

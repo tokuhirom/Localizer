@@ -15,7 +15,7 @@ my $ext = Localizer::Scanner::Xslate->new(
 );
 $ext->scan_file($result, 't/dat/Scanner/xslate.html');
 # use Data::Dumper; warn Dumper($result->entries);
-is_deeply $result->entries,
+is_deeply $result->_entries,
   {
     'nest2' => {
         'position' => [ [ 't/dat/Scanner/xslate.html', 13 ] ]
