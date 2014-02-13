@@ -70,6 +70,7 @@
       }
    },
    "version" : "0.01",
+   "x_authority" : "CPAN:TOKUHIROM",
    "x_contributors" : [
       "moznion <moznion@gmail.com>"
    ]

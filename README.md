@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/tokuhirom/Localizer.png?branch=master)](https://travis-ci.org/tokuhirom/Localizer)
 # NAME
 
 Localizer - It's new $module
