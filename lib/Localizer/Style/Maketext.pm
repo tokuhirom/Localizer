@@ -9,8 +9,8 @@ sub DEBUG () { 0 }
 sub new { bless {}, shift }
 
 sub compile {
-    my ($self, $fmt) = @_;
-    my $code = $self->_compile($fmt);
+    my ($self, $fmt, $functions) = @_;
+    my $code = $self->_compile($fmt, $functions);
     return $code;
 }
 
@@ -21,6 +21,7 @@ sub _compile {
     #  otherwise a ref to a scalar.
 
     my $string_to_compile = $_[1]; # There are taint issues using regex on @_ - perlbug 60378,27344
+    my $functions = $_[2];
 
     # The while() regex is more expensive than this check on strings that don't need a compile.
     # this op causes a ~2% speed hit for strings that need compile and a 250% speed improvement
@@ -136,7 +137,10 @@ sub _compile {
                     elsif($m =~ /^\w+$/s
                         # exclude anything fancy, especially fully-qualified module names
                     ) {
-                        push @code, ' $_[0]->call_function("' . $m . '",';
+                        unless (exists $functions->{$m}) {
+                            Carp::confess("Language resource compilation error. Unknown function: '${m}'");
+                        }
+                        push @code, ' $functions->{"' . $m . '"}->(';
                     }
                     else {
                         # TODO: implement something?  or just too icky to consider?

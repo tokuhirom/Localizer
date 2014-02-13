@@ -59,7 +59,7 @@ sub _compile {
                 Carp::confess("Language resource compilation error. Unknown function: '${function_name}'");
             }
 
-            my $code = q{$_[0]->call_function('} . $function_name . q{', };
+            my $code = q!$functions->{'! . $function_name . q!'}->(!;
             for my $arg (split(/,/, $4)) {
                 if (my $num = $arg =~ /%(.+)/) {
                     $code .= '$_[' . $num . '], ';

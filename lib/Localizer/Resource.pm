@@ -90,16 +90,6 @@ sub compile {
     return $code;
 }
 
-sub call_function {
-    my ($self, $name, @args) = @_;
-    my $code = $self->functions->{$name};
-    unless ($code) {
-        Carp::confess("Unknown function: ${name}");
-    }
-    my $ret = $code->(@args);
-    return $ret;
-}
-
 1;
 
 __END__
