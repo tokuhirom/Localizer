@@ -5,19 +5,28 @@ use Test::More;
 
 use Localizer::Style::Gettext;
 use Localizer::Resource;
-use Localizer::Format::Properties;
 
-subtest 'Properties file of gettext format' => sub {
+subtest 'gettext style' => sub {
     my $de = Localizer::Resource->new(
         dictionary => +{
-            %{Localizer::Format::Properties->new()->read_file('t/dat/Gettext/de.properties')},
-            '%% \\% ~ [ ]' => '%% \\% ~ [ ]',
-            '%unknown()' => '%unknown()',
-            q{'} => q{'},
+            'Hello, World!'                  => 'Hallo, Welt!',
+            'Double %dubbil(%1)'             => 'Doppelt %dubbil(%1)',
+            'You have %*(%1,piece) of mail.' => 'Sie haben %*(%1,Poststueck,Poststuecken).',
+            'Price: %#(%1)'                  => 'Preis: %#(%1)',
+            '%1()'                           => '%1()',
+            '%1 %2 %*'                       => '%* %2 %1',
+            '%1%2%*'                         => '%*%2%1',
+            '\n\nKnowledge\nAnd\nNature\n\n' =>
+"\n\nIch wuenschte recht gelehrt zu werden,\nUnd moechte gern, was auf der Erden\nUnd in dem Himmel ist, erfassen,\nDie Wissenschaft und die Natur.\n\n",
+            '_key'            => '_schlüssel',
+            '%% ~ [ ]'        => '%% \\% ~ [ ]',
+            '%% \\% ~ [ ]'    => '%% \\% ~ [ ]',
+            '%unknown()'      => '%unknown()',
+            q{'}              => q{'},
             q{rock'n'roll %1} => q{rock'n'roll %1},
-            q{f'b!m!} => q{f'b!m!},
+            q{f'b!m!}         => q{f'b!m!},
         },
-        format => Localizer::Style::Gettext->new,
+        format    => Localizer::Style::Gettext->new,
         functions => {
             dubbil => sub { return $_[0] * 2 },
         },

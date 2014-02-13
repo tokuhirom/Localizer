@@ -5,12 +5,19 @@ use Test::More;
 
 use Localizer::Style::Maketext;
 use Localizer::Resource;
-use Localizer::Format::Properties;
 
-subtest 'Properties file of maketext format' => sub {
+subtest 'maketext style' => sub {
     my $de = Localizer::Resource->new(
         dictionary => +{
-            %{read_properties('t/dat/Maketext/de.properties')},
+'Hello, World!' => 'Hallo, Welt!',
+'Double [dubbil,_1]' => 'Doppelt [dubbil,_1]',
+'You have [*,_1,piece] of mail.' => 'Sie haben [*,_1,Poststueck,Poststuecken].',
+'Price: [#,_1]' => 'Preis: [#,_1]',
+'[_1]()' => '[_1]()',
+'[_1] [_2] [_*]' => '[_*] [_2] [_1]',
+'[_1,_2,_*]' => '[_*][_2][_1]',
+'\n\nKnowledge\nAnd\nNature\n\n' => "\n\nIch wuenschte recht gelehrt zu werden,\nUnd moechte gern, was auf der Erden\nUnd in dem Himmel ist, erfassen,\nDie Wissenschaft und die Natur.\n\n",
+'_key' => '_schlüssel',
             'this is ] an error' => 'this is ] an error',
         },
         style => Localizer::Style::Maketext->new,
