@@ -94,6 +94,12 @@ sub compile {
 
 __END__
 
+=encoding utf-8
+
+=head1 NAME
+
+Localizer::Resource - Interface to manipulate Localizer
+
 =head1 SYNOPSIS
 
     use Localizer::Resource;
@@ -102,9 +108,13 @@ __END__
 
     my $ja = Localizer::Resource->new(
         dictionary => +{ Config::Properties->new(
-            file => 'en.properties'
+            file => 'ja.properties'
         )->properties },
         style => Localizer::Style::Gettext->new(),
     );
     say $ja->maketext("Hi, %1.", 'John');
+
+=head1 DESCRIPTION
+
+Localizer is the yet another framework for localization. It is more simple than past localization framework.
 

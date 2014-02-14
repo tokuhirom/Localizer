@@ -1,9 +1,7 @@
 [![Build Status](https://travis-ci.org/tokuhirom/Localizer.png?branch=master)](https://travis-ci.org/tokuhirom/Localizer)
 # NAME
 
-Localizer - It's new $module
-
-# SYNOPSIS
+Localizer - Yet another framework for localization
 
 # DESCRIPTION
 
@@ -19,3 +17,5 @@ it under the same terms as Perl itself.
 # AUTHOR
 
 Tokuhiro Matsuno <tokuhirom@gmail.com>
+
+moznion <moznion@gmail.com>

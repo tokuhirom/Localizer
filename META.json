@@ -1,5 +1,5 @@
 {
-   "abstract" : "It's new $module",
+   "abstract" : "Yet another framework for localization",
    "author" : [
       "Tokuhiro Matsuno <tokuhirom@gmail.com>"
    ],

@@ -12,9 +12,7 @@ __END__
 
 =head1 NAME
 
-Localizer - It's new $module
-
-=head1 SYNOPSIS
+Localizer - Yet another framework for localization
 
 =head1 DESCRIPTION
 
@@ -30,6 +28,8 @@ it under the same terms as Perl itself.
 =head1 AUTHOR
 
 Tokuhiro Matsuno E<lt>tokuhirom@gmail.comE<gt>
+
+moznion E<lt>moznion@gmail.comE<gt>
 
 =cut
 
