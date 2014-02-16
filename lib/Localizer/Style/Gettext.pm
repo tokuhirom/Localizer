@@ -115,7 +115,7 @@ This module provide feature to use gettext style 'Hi, %1'.
 
 =item %1, %2, %3, ...
 
-Replace with n-th argument.
+Replace with n-th argument (e.g. C<$_[1], $_[2], ...>). C<%*> is the special character, it is replaced to variable to get all of argument (equals C<@_[1 .. $#_]>).
 
 =item %quant(%1,piece)
 

@@ -321,7 +321,7 @@ This module provide feature to use maketext style 'Hi, [_1]'.
 
 =item [_1], [_2], [_3], ...
 
-Replace with n-th argument.
+Replace with n-th argument (e.g. C<$_[1], $_[2], ...>). C<[_*]> is the special character, it is replaced to variable to get all of argument (equals C<@_[1 .. $#_]>).
 
 =item [quant,_1,piece]
 
