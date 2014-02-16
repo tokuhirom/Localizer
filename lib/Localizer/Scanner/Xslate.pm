@@ -111,4 +111,75 @@ sub walker {
 }
 
 1;
+__END__
 
+=encoding utf-8
+
+=head1 NAME
+
+Localizer::Scanner::Xslate - Scanner for L<Text::Xslate> style file
+
+=head1 SYNOPSIS
+
+    use Localizer::Dictionary;
+    use Localizer::Scanner::Xslate;
+
+    my $result  = Localizer::Dictionary->new();
+    my $scanner = Localizer::Scanner::Xslate->new(
+        syntax => 'TTerse',
+    );
+    $scanner->scan_file($result, 'path/to/xslate.html');
+
+=head1 METHODS
+
+=over 4
+
+=item * Localizer::Scanner::Xslate(%args | \%args)
+
+Constructor. It makes scanner instance.
+
+e.g.
+
+    my $ext = Localizer::Scanner::Xslate->new(
+        syntax => 'Kolon', # => will use Text::Xslate::Syntax::Kolon
+    );
+
+=over 8
+
+=item syntax: String
+
+Specify syntax of L<Text::Xslate>. Default, this module uses L<Text::Xslate::Syntax::TTerse>.
+
+=back
+
+=item * $scanner->scan_file($result, $filename)
+
+Scan file which is written by xslate.
+C<$result> is the instance of L<Localizer::Dictionary> to store results.
+C<$filename> is file name of the target to scan.
+
+For example, if target file is follows;
+
+    [% IF xxx == l('term') %]
+    [% END %]
+
+    [% l('hello') %]
+
+Scanner uses C<l('foobar')> as C<msgid> (in this case, 'foobar' will be C<msgid>).
+
+C<$result> will be like a following;
+
+    {
+        'term' => {
+            'position' => [ [ 'path/to/xslate.html', 1 ] ]
+        },
+        'hello' => {
+            'position' => [ [ 'path/to/xslate.html', 4 ] ]
+        }
+    }
+
+=back
+
+=head1 SEE ALSO
+
+L<Locale::Maketext::Extract::Plugin::Xslate>
