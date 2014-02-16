@@ -303,4 +303,48 @@ sub _die_pointing {
 }
 
 1;
+__END__
 
+=encoding utf-8
+
+=head1 NAME
+
+Localizer::Style::Maketext - Maketext style
+
+=head1 DESCRIPTION
+
+This module provide feature to use maketext style 'Hi, [_1]'.
+
+=head1 SYNTAX
+
+=over 4
+
+=item [_1], [_2], [_3], ...
+
+Replace with n-th argument.
+
+=item [quant,_1,piece]
+
+It's for quantifying a noun (i.e., saying how much of it there is, while giving the correct form of it). Please refer to L<Locale::Maketext/language-quant-number-singular> and L<Locale::Maketext::Lexicon>.
+
+=item [numf,1000]
+
+Returns the given number formatted nicely according to this language's conventions. Please refer to L<Locale::Maketext/language-numf-number> and L<Locale::Maketext::Lexicon>.
+
+=item [*,_1,piece]
+
+Shorthand for quant.
+
+=item [#,1000]
+
+Shorthand for numf.
+
+=item [my_own_lang,_1,piece]
+
+Normal function call. You can register your own function in C<Localizer::Resource-E<gt>new>.
+
+=back
+
+=head1 SEE ALSO
+
+L<Locale::Maketext>, L<Locale::Maketext::Lexicon>
