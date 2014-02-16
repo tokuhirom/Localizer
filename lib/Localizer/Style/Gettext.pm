@@ -99,6 +99,8 @@ sub _compile {
 1;
 __END__
 
+=encoding utf-8
+
 =head1 NAME
 
 Localizer::Style::Gettext - Gettext style
@@ -115,20 +117,28 @@ This module provide feature to use gettext style 'Hi, %1'.
 
 Replace with n-th argument.
 
+=item %quant(%1,piece)
+
+It's for quantifying a noun (i.e., saying how much of it there is, while giving the correct form of it). Please refer to L<Locale::Maketext/language-quant-number-singular> and L<Locale::Maketext::Lexicon>.
+
+=item %numf(1000)
+
+Returns the given number formatted nicely according to this language's conventions. Please refer to L<Locale::Maketext/language-numf-number> and L<Locale::Maketext::Lexicon>.
+
 =item %*(%1,piece)
 
 Shorthand for quant.
 
-=item %*(1000)
+=item %#(1000)
 
 Shorthand for numf.
 
-=item %numf(1000)
-
-=item %quant(%1,piece)
-
 =item %my_own_lang(%1,piece)
 
-Normal function call.
+Normal function call. You can register your own function in C<Localizer::Resource-E<gt>new>.
 
 =back
+
+=head1 SEE ALSO
+
+L<Locale::Maketext>, L<Locale::Maketext::Lexicon>
