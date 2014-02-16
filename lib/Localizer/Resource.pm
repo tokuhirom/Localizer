@@ -63,11 +63,6 @@ sub maketext {
     return unless defined $compiled;
 
     if (ref $compiled eq 'CODE') {
-        if (0) {
-            require B::Deparse;
-            my $deparse = B::Deparse->new("-p", "-sC");
-            warn $deparse->coderef2text($compiled);
-        }
         return $compiled->($self, @args);
     } elsif (ref $compiled eq 'SCALAR') {
         return $$compiled;
