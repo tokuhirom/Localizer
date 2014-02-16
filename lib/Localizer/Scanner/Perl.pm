@@ -164,4 +164,61 @@ PARSER: {
 }
 
 1;
+__END__
 
+=encoding utf-8
+
+=head1 NAME
+
+Localizer::Scanner::Perl - Scanner for file which is written by perl
+
+=head1 SYNOPSIS
+
+    use Localizer::Dictionary;
+    use Localizer::Scanner::Perl;
+
+    my $result  = Localizer::Dictionary->new();
+    my $scanner = Localizer::Scanner::Perl->new();
+    $scanner->scan_file($result, 'path/to/perl.pl');
+
+=head1 METHODS
+
+=over 4
+
+=item * Localizer::Scanner::Perl()
+
+Constructor. It makes scanner instance.
+
+=item * $scanner->scan_file($result, $filename)
+
+Scan file which is written by perl.
+C<$result> is the instance of L<Localizer::Dictionary> to store results.
+C<$filename> is file name of the target to scan.
+
+For example, if target file is follows;
+
+    print q{_("123")};
+    print q{l("foo")};
+    print q{loc("bar")};
+
+Scanner uses C<_('foobar')>, C<l('foobar')> and C<loc('foobar')> as C<msgid> (in this case, 'foobar' will be C<msgid>).
+
+C<$result> will be like a following;
+
+    {
+        '123' => {
+            'position' => [ [ 'path/to/perl.pl', 1 ] ]
+        },
+        'foo' => {
+            'position' => [ [ 'path/to/perl.pl', 2 ] ]
+        },
+        'bar' => {
+            'position' => [ [ 'path/to/perl.pl', 3 ] ]
+        }
+    }
+
+=back
+
+=head1 SEE ALSO
+
+L<Locale::Maketext::Extract::Plugin::Perl>
