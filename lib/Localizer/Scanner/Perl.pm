@@ -166,6 +166,8 @@ PARSER: {
 1;
 __END__
 
+=for stopwords foobar
+
 =encoding utf-8
 
 =head1 NAME

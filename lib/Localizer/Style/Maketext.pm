@@ -305,6 +305,8 @@ sub _die_pointing {
 1;
 __END__
 
+=for stopwords n-th numf
+
 =encoding utf-8
 
 =head1 NAME

@@ -113,6 +113,8 @@ sub _walker {
 1;
 __END__
 
+=for stopwords xslate foobar
+
 =encoding utf-8
 
 =head1 NAME

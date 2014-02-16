@@ -89,6 +89,8 @@ sub _compile {
 
 __END__
 
+=for stopwords ja.properties precompile precompiles localizer maketext
+
 =encoding utf-8
 
 =head1 NAME

@@ -28,6 +28,8 @@ sub add_entry_position {
 1;
 __END__
 
+=for stopwords msgid
+
 =encoding utf-8
 
 =head1 NAME

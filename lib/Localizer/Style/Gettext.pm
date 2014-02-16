@@ -99,6 +99,8 @@ sub _compile {
 1;
 __END__
 
+=for stopwords gettext n-th numf
+
 =encoding utf-8
 
 =head1 NAME
