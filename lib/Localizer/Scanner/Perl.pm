@@ -217,6 +217,11 @@ C<$result> will be like a following;
         }
     }
 
+=item * $scanner->scan($result, $filename, $data)
+
+This method is almost the same as C<scan_file()>.
+This method does not load file contents, it uses C<$data> as file contents instead.
+
 =back
 
 =head1 SEE ALSO
