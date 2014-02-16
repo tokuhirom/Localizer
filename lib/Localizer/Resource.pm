@@ -159,17 +159,17 @@ Format of dictionary. Now this module supports L<Localizer::Style::Gettext> (Get
 
 =item functions: Hash Reference
 
-Register functions to call by dictionary. It must be hash reference.
+Register functions to call by dictionary. Please see also L<Localizer::Style::Gettext> and L<Localizer::Style::Maketext>.
 
 =item precompile: Scalar Value
 
-It precompiles dictionary data if this value is true value. Default value is 1 (means always precompile).
+It precompiles dictionary data if this value is true. Default value is 1 (means always precompile).
 
 =back
 
 =item * $localizer->maketext($key);
 
-Localize from dictionary data by key.  If you give nonexistent key to this method, it returns undef.
+Localize by dictionary data with key. If you give nonexistent key to this method, it returns undef.
 
 =back
 

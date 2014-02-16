@@ -39,13 +39,14 @@ Localizer::Dictionary - Dictionary for Localizer::Scanner
 =head1 DESCRIPTION
 
 Dictionary for Localizer::Scanner class.
+This module is ** IRRELEVANT ** to dictionary of L<Localizer::Resource>.
 
 =head1 SYNOPSIS
 
     use Localizer::Dictionary;
 
     my $dict = Localizer::Dictionary->new();
-    $dict->add_entry_position('Hi %1', 'foo.tt', 10);
+    $dict->add_entry_position('Hi %1', 'path/to/foo.tt', 10);
     $dict->exists_msgid('Hi %1');  # => 1
     $dict->exists_msgid('foobar'); # => ''
 
