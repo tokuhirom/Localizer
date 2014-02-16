@@ -40,7 +40,7 @@ sub scan {
     my $ast = $self->parser->parse($data);
     local $FILENAME = $filename;
     local $RESULT = $result;
-    $self->walker($ast);
+    $self->_walker($ast);
     return $result;
 }
 
@@ -53,7 +53,7 @@ sub scan_file {
 }
 
 my $sp = '';
-sub walker {
+sub _walker {
     my($self, $ast) = @_;
     $ast = [ $ast ] if $ast && ref($ast) eq 'Text::Xslate::Symbol';
     return unless $ast && ref($ast) eq 'ARRAY';
@@ -76,9 +76,9 @@ sub walker {
         }
 
         unless (DEBUG) {
-            $self->walker($sym->first);
-            $self->walker($sym->second);
-            $self->walker($sym->third);
+            $self->_walker($sym->first);
+            $self->_walker($sym->second);
+            $self->_walker($sym->third);
         } else {
             warn "$sp id: " . $sym->id;
             warn "$sp line: " . $sym->line;
@@ -92,17 +92,17 @@ sub walker {
 
             warn "$sp first: " . $sym->first;
             $sp .= ' ';
-            $self->walker($sym->first);
+            $self->_walker($sym->first);
             $sp =~ s/^.//;
 
             warn "$sp second: " . $sym->second;
             $sp .= ' ';
-            $self->walker($sym->second);
+            $self->_walker($sym->second);
             $sp =~ s/^.//;
 
             warn "$sp third: " . $sym->third;
             $sp .= ' ';
-            $self->walker($sym->third);
+            $self->_walker($sym->third);
             $sp =~ s/^.//;
 
             warn $sp . '----------';

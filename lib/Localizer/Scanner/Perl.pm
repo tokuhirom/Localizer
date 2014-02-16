@@ -23,7 +23,7 @@ sub new {
 
 sub scan {
     my($self, $result, $filename, $data) = @_;
-    $self->walker($data, $result, $filename);
+    $self->_walker($data, $result, $filename);
     return $result;
 }
 
@@ -36,7 +36,7 @@ sub scan_file {
 }
 
 # Imported from Locale::Maketext::Extract::Plugin::Perl
-sub walker {
+sub _walker {
     my $self = shift;
     local $_ = shift;
     my ($result, $filename) = @_;
