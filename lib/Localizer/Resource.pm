@@ -110,11 +110,73 @@ Localizer::Resource - Interface to manipulate Localizer
         dictionary => +{ Config::Properties->new(
             file => 'ja.properties'
         )->properties },
-        style => Localizer::Style::Gettext->new(),
+        format => Localizer::Style::Gettext->new(),
+        functions => {
+            dubbil => sub { return $_[0] * 2 },
+        },
     );
-    say $ja->maketext("Hi, %1.", 'John');
+    say $ja->maketext("Hi, %1.", "John");        # => こんにちは、John。
+    say $ja->maketext("Double: %dubbil(%1)", 7); # => 2倍: 14
+
+Example of contents of ja.properties, like so;
+
+    Hi,\ %1.=こんにちは、%1。
+    Double\:\ %dubbil(%1)=2倍:\ %dubbil(%1)
 
 =head1 DESCRIPTION
 
-Localizer is the yet another framework for localization. It is more simple than past localization framework.
+L<Localizer> is the yet another framework for localization. It is more simple than past localization framework.
+
+This module is the interface to manipulate L<Localizer>.
+
+=head1 METHODS
+
+=over 4
+
+=item * Localizer::Resource->new(%args | \%args)
+
+Constructor. It makes Localizer client with C<%args>.
+
+e.g.
+
+    my $de = Localizer::Resource->new(
+        dictionary => {
+            'Hello, World!' => 'Hello, Welt!'
+        }
+        format => Localizer::Style::Gettext->new(),
+        functions => {
+            dubbil => sub { return $_[0] * 2 },
+        },
+        precompile => 0,
+    );
+
+=over 8
+
+=item dictionary: Hash Reference
+
+Dictionary data to localize.
+
+=item format: Instance of Style Class
+
+Format of dictionary. Now this module supports L<Localizer::Style::Gettext> (Gettext style) and L<Localizer::Style::Maketext> (Maketext style). Default value is L<Localizer::Style::Gettext>.
+
+=item functions: Hash Reference
+
+Register functions to call by dictionary. It must be hash reference.
+
+=item precompile: Scalar Value
+
+It precompiles dictionary data if this value is true value. Default value is 1 (means always precompile).
+
+=back
+
+=item * $localizer->maketext($key);
+
+Localize from dictionary data by key.  If you give nonexistent key to this method, it returns undef.
+
+=back
+
+=head1 SEE ALSO
+
+L<Locale::Maketext>, L<Locale::Maketext::Lexicon>
 
