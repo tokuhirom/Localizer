@@ -49,7 +49,7 @@ sub new {
     # Compile dictionary data to CodeRef or ScalarRef
     if ($self->precompile) {
         for my $msgid (keys %{$self->dictionary}) {
-            $self->compile($msgid);
+            $self->_compile($msgid);
         }
     }
 
@@ -59,7 +59,7 @@ sub new {
 sub maketext {
     my ($self, $msgid, @args) = @_;
 
-    my $compiled = $self->compile($msgid);
+    my $compiled = $self->_compile($msgid);
     return unless defined $compiled;
 
     if (ref $compiled eq 'CODE') {
@@ -76,7 +76,7 @@ sub maketext {
     }
 }
 
-sub compile {
+sub _compile {
     my ($self, $msgid) = @_;
 
     if (my $code = $self->compiled->{$msgid}) {
