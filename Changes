@@ -2,6 +2,10 @@ Revision history for Perl extension Localizer
 
 {{$NEXT}}
 
+0.02 2014-02-17T10:21:35Z
+
+    - remove trash from core dist.
+
 0.01 2014-02-17T10:11:20Z
 
     - original version
