@@ -350,3 +350,11 @@ Normal function call. You can register your own function in C<Localizer::Resourc
 =head1 SEE ALSO
 
 L<Locale::Maketext>, L<Locale::Maketext::Lexicon>
+
+=head1 LICENSE
+
+Copyright (C) Tokuhiro Matsuno.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+

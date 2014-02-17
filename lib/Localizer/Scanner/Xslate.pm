@@ -190,3 +190,11 @@ This method does not load file contents, it uses C<$data> as file contents inste
 =head1 SEE ALSO
 
 L<Locale::Maketext::Extract::Plugin::Xslate>
+
+=head1 LICENSE
+
+Copyright (C) Tokuhiro Matsuno.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
