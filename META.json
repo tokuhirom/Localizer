@@ -45,7 +45,6 @@
       "runtime" : {
          "requires" : {
             "Class::Accessor::Lite" : "0.05",
-            "parent" : "0",
             "perl" : "5.010001"
          }
       },

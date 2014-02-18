@@ -1,5 +1,4 @@
 requires 'perl', '5.010001';
-requires 'parent';
 requires 'Class::Accessor::Lite', '0.05';
 
 on 'test' => sub {
