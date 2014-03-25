@@ -9,8 +9,8 @@ sub DEBUG () { 0 }
 sub new { bless {}, shift }
 
 sub compile {
-    my ($self, $fmt, $functions) = @_;
-    my $code = $self->_compile($fmt, $functions);
+    my ($self, $msgid, $fmt, $functions) = @_;
+    my $code = $self->_compile($msgid, $fmt, $functions);
     return $code;
 }
 
@@ -20,8 +20,9 @@ sub _compile {
     # It returns either a coderef if there's brackety bits in this, or
     #  otherwise a ref to a scalar.
 
-    my $string_to_compile = $_[1]; # There are taint issues using regex on @_ - perlbug 60378,27344
-    my $functions = $_[2];
+    my $msgid = $_[1];
+    my $string_to_compile = $_[2]; # There are taint issues using regex on @_ - perlbug 60378,27344
+    my $functions = $_[3];
 
     # The while() regex is more expensive than this check on strings that don't need a compile.
     # this op causes a ~2% speed hit for strings that need compile and a 250% speed improvement
@@ -247,6 +248,7 @@ sub _compile {
     elsif(@code > 1) { # most cases, presumably!
         unshift @code, "join '',\n";
     }
+    unshift @code, qq!#line 1 "${msgid}"\n!;
     unshift @code, "use strict; sub {\n";
     push @code, "}\n";
 

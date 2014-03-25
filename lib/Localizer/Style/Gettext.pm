@@ -10,13 +10,13 @@ use Carp ();
 sub new { bless {}, shift }
 
 sub compile {
-    my ($self, $fmt, $functions) = @_;
-    my $code = $self->_compile($fmt, $functions);
+    my ($self, $msgid, $fmt, $functions) = @_;
+    my $code = $self->_compile($msgid, $fmt, $functions);
     return $code;
 }
 
 sub _compile {
-    my ($self, $str, $functions) = @_;
+    my ($self, $msgid, $str, $functions) = @_;
 
     return \$str unless $str =~ /%/;
 
@@ -88,6 +88,7 @@ sub _compile {
     if (@code > 1) { # most cases, presumably!
         unshift @code, "join '',\n";
     }
+    unshift @code, qq!#line 1 "${msgid}"\n!;
     unshift @code, "use strict; sub {\n";
     push @code, "}\n";
 
