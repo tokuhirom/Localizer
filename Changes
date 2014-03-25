@@ -2,6 +2,11 @@ Revision history for Perl extension Localizer
 
 {{$NEXT}}
 
+0.04 2014-03-25T13:18:29Z
+
+    - Added `#line` for generated code.
+      (tokuhirom)
+
 0.03 2014-02-18T04:30:17Z
 
     - split scanner related things to the Localizer-Scanner dist.
