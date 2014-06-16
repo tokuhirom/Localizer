@@ -4,16 +4,28 @@ use utf8;
 use Test::More;
 
 use Localizer::Resource;
+
 use Localizer::Style::Gettext;
+use Localizer::Style::Maketext;
 
-my %dat = read_key_value("t/dat/es.properties");
+my %dat = read_key_value("t/dat/utf8.properties");
 
-my $resource = Localizer::Resource->new(
-    dictionary => \%dat,
-    style      => Localizer::Style::Gettext->new(),
-);
-ok utf8::is_utf8($resource->maketext('e1')), 'e1';
-ok utf8::is_utf8($resource->maketext('e2')), 'e2';
+for my $style (
+    Localizer::Style::Gettext->new(),
+    Localizer::Style::Maketext->new(),
+) {
+    for my $s (qw(e1 e2 e3 e4 e5 e6)) {
+        my $code = $style->compile($s, $dat{$s});
+        my $got = do {
+            if (UNIVERSAL::isa($code, 'CODE')) {
+                $code->('e', 'k');
+            } else {
+                $$code;
+            }
+        };
+        ok utf8::is_utf8($got), "$s " . ref($style);
+    }
+}
 
 done_testing;
 

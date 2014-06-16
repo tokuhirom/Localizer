@@ -21,6 +21,7 @@ sub _compile {
     return \$str unless $str =~ /%/;
 
     my @code;
+    my @bind;
     while ($str =~ m/
             (.*?)
             (?:
@@ -36,12 +37,19 @@ sub _compile {
             )
         /gsx
     ) {
-        if ($1) {
+        if ($1) { # Raw string
             my $text = $1;
-            $text =~ s/\\/\\\\/g;
-            push @code, B::perlstring($text) . ',';
+            if ($text !~ m/[^\x20-\x7E]/s) { # ASCII very safe chars
+                $text =~ s/\\/\\\\/g;
+                push @code, B::perlstring($text) . ',';
+            } else {
+                # For example, `(eval "sub { qq{% usar\x{e1}n}}")->()` drops UTF-8 flag.
+                # This code is the workaround for this issue.
+                push @code, sprintf(q{$bind[%d],}, 0+@bind);
+                push @bind, $text;
+            }
         }
-        if ($2) {
+        if ($2) { # \% %%
             my $text = $2;
             $text =~ s/\\/\\\\\\\\/g;
             push @code, "'" . $text . "',";
